@@ -1,4 +1,4 @@
-import { BookOpen, FileText, Link as LinkIcon, Facebook, Youtube, MessageCircle, Send, Moon, Sun, Download, Share2, Check } from 'lucide-react';
+import { BookOpen, FileText, Link as LinkIcon, Facebook, Youtube, MessageCircle, Send, Moon, Sun, Download, Share2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Switch } from '@/components/ui/switch';
@@ -144,23 +144,15 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
                 <span>Share App</span>
               </button>
 
-              <button
-                onClick={handleInstall}
-                disabled={isInstalled}
-                className={`sidebar-link w-full text-left ${isInstalled ? 'opacity-50 cursor-not-allowed' : ''}`}
-              >
-                {isInstalled ? (
-                  <>
-                    <Check size={20} className="text-green-500" />
-                    <span>Installed</span>
-                  </>
-                ) : (
-                  <>
-                    <Download size={20} className="text-primary" />
-                    <span>Install App</span>
-                  </>
-                )}
-              </button>
+              {!isInstalled && (
+                <button
+                  onClick={handleInstall}
+                  className="sidebar-link w-full text-left hover:bg-accent transition-colors"
+                >
+                  <Download size={20} className="text-primary" />
+                  <span>Install App</span>
+                </button>
+              )}
             </div>
           </div>
         </ScrollArea>
