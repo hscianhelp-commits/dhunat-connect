@@ -63,15 +63,22 @@ export const usePwaInstall = () => {
       try {
         await prompt.prompt();
         const { outcome } = await prompt.userChoice;
-        
+
         if (outcome === 'accepted') {
           setIsInstalled(true);
+          globalDeferredPrompt = null;
+          promptRef.current = null;
+          setIsReady(false);
+        } else {
+          // Keep the captured event so the user can tap/click Install again later.
+          // (Some browsers may only allow prompting once; if so, we'll clear it on error next time.)
+          setIsReady(true);
         }
+      } catch (error) {
+        console.error('Install error:', error);
         globalDeferredPrompt = null;
         promptRef.current = null;
         setIsReady(false);
-      } catch (error) {
-        console.error('Install error:', error);
       }
     }
     // If the browser doesn't expose an install prompt (e.g., not eligible yet),
